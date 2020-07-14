@@ -19,7 +19,6 @@ package controllers
 import (
 	"context"
 	"k8s.io/apimachinery/pkg/api/errors"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 
 	"github.com/go-logr/logr"
@@ -55,8 +54,8 @@ func (r *CollectorReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 
 	application := labv1.Application{}
 	nsn := types.NamespacedName{
-		Namespace: application.Namespace,
-		Name:      application.Name,
+		Namespace: collector.Namespace,
+		Name:      collector.Name,
 	}
 	err = r.Client.Get(ctx, nsn, &application)
 	if err != nil {
@@ -66,8 +65,9 @@ func (r *CollectorReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 		return ctrl.Result{}, err
 	}
 
-	policy := client.PropagationPolicy(v1.DeletePropagationForeground)
-	err = r.Client.Delete(ctx, &application, policy)
+	//policy := client.PropagationPolicy(v1.DeletePropagationOrphan)
+	err = r.Client.Delete(ctx, &application)
+	r.Client.Status().Update()
 
 	return ctrl.Result{}, nil
 }
