@@ -1,0 +1,7 @@
+apiVersion: lab.apodemas/v1
+kind: Collector
+metadata:
+  name: sample
+spec:
+  # Add fields here
+  appName: sample

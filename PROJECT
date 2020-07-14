@@ -1,0 +1,10 @@
+domain: apodemas
+repo: apodemakeles/k8s/gc
+resources:
+- group: lab
+  kind: Application
+  version: v1
+- group: lab
+  kind: Collector
+  version: v1
+version: "2"

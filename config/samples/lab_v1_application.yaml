@@ -1,0 +1,5 @@
+apiVersion: lab.apodemas/v1
+kind: Application
+metadata:
+  name: sample
+spec: {}
